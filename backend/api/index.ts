@@ -12,11 +12,13 @@ app.get('/', (req, res) => {
 	})
 });
 
-app.get('/add', (req, res) => {
+app.get('/add', async (_req, res) => {
 	const _flashcard = {
-		front: 'fff'
+		"category": "NEWONE",
+		"front": "fffffffffffffffff",
+		"back": "bbbbbbbbbbb"
 	}
-	const flashcard = flashcardsHandler.createFlashcard(_flashcard);
+	const flashcard = await flashcardsHandler.createFlashcard(_flashcard);
 	res.json({
 		flashcard
 	})

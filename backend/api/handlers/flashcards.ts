@@ -2,6 +2,7 @@
 import { join } from 'path';
 import { JSONFile } from 'lowdb/node';
 import { Low }  from 'lowdb';
+import * as tools from '../tools';
 
 const projectBasePath = process.cwd();
 const dbPathAndFileName = join(projectBasePath, 'backend/data/db.json');
@@ -14,8 +15,9 @@ export const getFlashcards = () => {
 }
 
 export const createFlashcard = async (flashcard: any) => {
-	const _flashcards = db.data.flashcards;
-	_flashcards.push(flashcard);
+	flashcard.suuid = tools.generateSuuid();
+	const flashcards = db.data.flashcards;
+	flashcards.push(flashcard);
 	await db.write();
 	return flashcard;
 }
