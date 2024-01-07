@@ -10,12 +10,14 @@ const db:any = new Low(adapter, []);
 await db.read();
 
 export const getFlashcards = () => {
-	const jobs = db.data.flashcards;
-	return jobs;
+	return db.data.flashcards;
 }
 
-export const createFlashcard = () => {
-	console.log('created one flashcard');
+export const createFlashcard = async (flashcard: any) => {
+	const _flashcards = db.data.flashcards;
+	_flashcards.push(flashcard);
+	await db.write();
+	return flashcard;
 }
 
 
