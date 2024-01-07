@@ -1,11 +1,15 @@
 import express from 'express';
 import * as config from './config';
+import * as flashcardsHandler from './handlers/flashcards';
 
 const app = express();
 
 app.get('/', (req, res) => {
+	flashcardsHandler.createFlashcard();
+	const flashcards = flashcardsHandler.getFlashcards();
 	res.json({
-		appName: "API for AppLearn version 0.1"
+		appName: "API for AppLearn version 0.1",
+		flashcards
 	})
 });
 

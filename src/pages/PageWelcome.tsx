@@ -1,4 +1,6 @@
-import flashcards from "../../backend/data/flashcards.json";
+import db from "../../backend/data/db.json";
+
+const flashcards = db.flashcards;
 
 export const PageWelcome = () => {
 	return (
