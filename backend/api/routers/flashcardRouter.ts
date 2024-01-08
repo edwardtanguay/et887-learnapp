@@ -1,14 +1,23 @@
 import { Router } from 'express';
+import * as flashcardHandler from '../handlers/flashcardHandlers';
+import { IFlashcard } from '../../interfaces';
 
 export const flashcardRouter = Router();
 
 flashcardRouter.get('/', (_req, res) => {
-	res.json('get all flashcards');
+	res.json(flashcardHandler.getAllFlashcards());
 });
 
 flashcardRouter.get('/:suuid', (req, res) => {
 	const suuid = req.params.suuid;
-	res.json(`get one flashcard with suuid ${suuid}`);
+	const flashcard: IFlashcard | null = flashcardHandler.getOneFlashcard(suuid);
+	if (flashcard) {
+		res.json(flashcard);
+	} else {
+		res.status(404).json({
+			message: `Flashcard with suuid "${suuid}" was not found.`
+		})
+	}
 });
 
 flashcardRouter.post('/', (_req, res) => {
