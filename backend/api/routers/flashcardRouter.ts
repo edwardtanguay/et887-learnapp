@@ -20,7 +20,7 @@ flashcardRouter.get('/:suuid', (req, res) => {
 	}
 });
 
-flashcardRouter.post('/',  async (req, res) => {
+flashcardRouter.post('/', async (req, res) => {
 	const newFlashcard: INewFlashcard = req.body;
 	const createdFlashcard = await flashcardHandler.createFlashcard(newFlashcard);
 	res.json(createdFlashcard);
@@ -52,7 +52,14 @@ flashcardRouter.patch('/:suuid', async (req, res) => {
 	}
 });
 
-flashcardRouter.delete('/:suuid', (req, res) => {
+flashcardRouter.delete('/:suuid', async (req, res) => {
 	const suuid = req.params.suuid;
-	res.json(`delete flashcard with suuid ${suuid}`);
+	const deletedFlashcard = await flashcardHandler.deleteFlashcard(suuid);
+	if (deletedFlashcard) {
+		res.json(deletedFlashcard);
+	} else {
+		res.status(404).json({
+			message: `Flashcard with suuid "${suuid}" was not found.`
+		})
+	}
 });

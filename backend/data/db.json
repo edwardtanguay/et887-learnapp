@@ -23,12 +23,6 @@
       "category": "linux",
       "front": "navigate to the home directory",
       "back": "cd ~"
-    },
-    {
-      "category": "ONLY CATEGORY REPLACED",
-      "front": "mock front",
-      "back": "mock back",
-      "suuid": "VkXMbd"
     }
   ]
 }

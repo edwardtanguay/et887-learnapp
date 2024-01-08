@@ -50,9 +50,9 @@ export const replaceFlashcard = async (suuid: string, newFlashcard: INewFlashcar
 export const replaceSomeFieldsInFlashcard = async (suuid: string, patchFlashcard: IPatchFlashcard) => {
 	const flashcard: IFlashcard | undefined = db.data.flashcards.find(m => m.suuid === suuid);
 	if (flashcard) {
-		if(patchFlashcard.category) flashcard.category = patchFlashcard.category;
-		if(patchFlashcard.front) flashcard.front = patchFlashcard.front;
-		if(patchFlashcard.back) flashcard.back = patchFlashcard.back;
+		if (patchFlashcard.category) flashcard.category = patchFlashcard.category;
+		if (patchFlashcard.front) flashcard.front = patchFlashcard.front;
+		if (patchFlashcard.back) flashcard.back = patchFlashcard.back;
 		await db.write();
 		return flashcard;
 	} else {
@@ -60,4 +60,16 @@ export const replaceSomeFieldsInFlashcard = async (suuid: string, patchFlashcard
 	}
 }
 
-
+export const deleteFlashcard = async (suuid: string) => {
+	const deletedFlashcard = db.data.flashcards.find(m => m.suuid === suuid);
+	if (deletedFlashcard) {
+		const indexToRemove = db.data.flashcards.findIndex((flashcard) => flashcard.suuid === suuid);
+		if (indexToRemove !== -1) {
+			db.data.flashcards.splice(indexToRemove, 1);
+			await db.write();
+		}
+		return deletedFlashcard;
+	} else {
+		return null;
+	}
+}
