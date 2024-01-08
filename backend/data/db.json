@@ -25,10 +25,10 @@
       "back": "cd ~"
     },
     {
-      "category": "mock CHANGED category",
-      "front": "mock CHANGED front",
-      "back": "mock CHANGE back",
-      "suuid": "veuIaG"
+      "category": "ONLY CATEGORY REPLACED",
+      "front": "mock front",
+      "back": "mock back",
+      "suuid": "VkXMbd"
     }
   ]
 }
