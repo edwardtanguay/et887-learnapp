@@ -1,7 +1,8 @@
 import { join } from 'path';
 import { JSONFile } from 'lowdb/node';
-import { Low }  from 'lowdb';
-import { IDatabase } from '../../interfaces';
+import { Low } from 'lowdb';
+import { IDatabase, IFlashcard, INewFlashcard } from '../../interfaces';
+import * as tools from '../tools';
 
 const projectBasePath = process.cwd();
 const dbPathAndFileName = join(projectBasePath, 'backend/data/db.json');
@@ -22,14 +23,29 @@ export const getOneFlashcard = (suuid: string) => {
 	}
 }
 
-// import * as tools from '../tools';
-// export const createFlashcard = async (flashcard: any) => {
-// 	flashcard.suuid = tools.generateSuuid();
-// 	const flashcards = db.data.flashcards;
-// 	flashcards.push(flashcard);
-// 	await db.write();
-// 	return flashcard;
-// }
+export const createFlashcard = async (newFlashcard: INewFlashcard) => {
+	const flashcard: IFlashcard = {
+		...newFlashcard,
+		suuid: tools.generateSuuid()
+	}
+	const flashcards = db.data.flashcards;
+	flashcards.push(flashcard);
+	await db.write();
+	return flashcard;
+}
+
+export const replaceFlashcard = async (suuid: string, newFlashcard: INewFlashcard) => {
+	const flashcard: IFlashcard | undefined = db.data.flashcards.find(m => m.suuid === suuid);
+	if (flashcard) {
+		flashcard.category = newFlashcard.category;
+		flashcard.front = newFlashcard.front;
+		flashcard.back = newFlashcard.back;
+		await db.write();
+		return flashcard;
+	} else {
+		return null;
+	}
+}
 
 
 
