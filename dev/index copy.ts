@@ -1,6 +1,6 @@
 import express from 'express';
 import * as config from '../backend/api/config';
-import * as flashcardsHandler from '../backend/api/handlers/flashcards';
+import * as flashcardsHandler from '../backend/api/handlers/flashcardHandlers';
 
 const app = express();
 
